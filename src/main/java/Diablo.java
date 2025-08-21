@@ -58,7 +58,7 @@ public class Diablo {
                     list.add(newTask);
                 }
                 Task task = list.get(list.size() - 1);
-                System.out.println("\tGot it. I've added this task\n\t" + task);
+                System.out.println("\tGot it. I've added this task:\n\t" + task);
                 System.out.println("\tYou now have " + list.size() + " tasks in the list.");
                 printHorizontalLine();
             }
