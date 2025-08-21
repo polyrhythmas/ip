@@ -1,12 +1,28 @@
+import java.util.Scanner; // Import Scanner class
+
 public class Diablo {
     public static void main(String[] args) {
+        // Preliminaries
         String botName = "Diablo";
         String greeting = "Hello! I'm " + botName + "\nWhat can I do for you?";
         String exit = "Bye. Hope to see you again soon!";
-        
+        Scanner scanner = new Scanner(System.in);
+
+        // Start
         printHorizontalLine();
         System.out.println(greeting);
         printHorizontalLine();
+        boolean finished = false;
+        while (!finished) {
+            String userInput = scanner.nextLine();
+            printHorizontalLine();
+            if (userInput.equals("bye")) {
+                finished = true;
+            } else {
+                System.out.println(userInput);
+                printHorizontalLine();
+            }
+        }
         System.out.println(exit);
         printHorizontalLine();
     }
