@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner; // Import Scanner class
 
 public class Diablo {
@@ -6,6 +7,7 @@ public class Diablo {
         String botName = "Diablo";
         String greeting = "\tHello! I'm " + botName + "\n\tWhat can I do for you?";
         String exit = "\tBye. Hope to see you again soon!";
+        ArrayList<String> list = new ArrayList<String>();
         Scanner scanner = new Scanner(System.in);
 
         // Start
@@ -18,8 +20,14 @@ public class Diablo {
             printHorizontalLine();
             if (userInput.equals("bye")) {
                 finished = true;
+            } else if (userInput.equals("list")) {
+                for (int i = 0; i < list.size(); i++) {
+                    System.out.println("\t" + (i + 1) + ": " + list.get(i));
+                }
+                printHorizontalLine();
             } else {
-                System.out.println("\t" + userInput);
+                System.out.println("\tadded: " + userInput);
+                list.add(userInput);
                 printHorizontalLine();
             }
         }
