@@ -26,14 +26,21 @@ public class Diablo {
                     System.out.println("\t" + (i + 1) + ":" + list.get(i));
                 }
                 printHorizontalLine();
-            } else if (firstWord.equals("mark")) {
+            } else if (firstWord.equals("mark") || firstWord.equals("delete")) {
                 int stringLen = userInput.length();
                 int taskNumber = Integer.parseInt(userInput.substring(stringLen - 1, stringLen));
                 Task task = list.get(taskNumber - 1);
-                task.complete();
-                System.out.println("\tNice! I've marked this task as done:\n\t\t" + task);
+                if (firstWord.equals("mark")) {
+                    task.complete();
+                    System.out.println("\tNice! I've marked this task as done:\n\t\t" + task);
+                } else {
+                    list.remove(taskNumber - 1);
+                    System.out.println("\t ALright, I've removed this task:\n\t\t" + task);
+                }
+
                 printHorizontalLine();
-            } else {
+            }
+            else {
                 if (firstWord.equals("deadline")) {
                     try {
                         int startBy = userInput.indexOf("/by");
