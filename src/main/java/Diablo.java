@@ -7,7 +7,7 @@ public class Diablo {
         String botName = "Diablo";
         String greeting = "\tHello! I'm " + botName + "\n\tWhat can I do for you?";
         String exit = "\tBye. Hope to see you again soon!";
-        ArrayList<String> list = new ArrayList<String>();
+        ArrayList<Task> list = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
 
         // Start
@@ -22,12 +22,20 @@ public class Diablo {
                 finished = true;
             } else if (userInput.equals("list")) {
                 for (int i = 0; i < list.size(); i++) {
-                    System.out.println("\t" + (i + 1) + ": " + list.get(i));
+                    System.out.println("\t" + (i + 1) + ":" + list.get(i));
                 }
+                printHorizontalLine();
+            } else if (userInput.split(" ")[0].equals("mark")) {
+                int stringLen = userInput.length();
+                int taskNumber = Integer.parseInt(userInput.substring(stringLen - 1, stringLen));
+                Task task = list.get(taskNumber - 1);
+                task.complete();
+                System.out.println("\tNice! I've marked this task as done:\n\t\t" + task);
                 printHorizontalLine();
             } else {
                 System.out.println("\tadded: " + userInput);
-                list.add(userInput);
+                Task newTask = new Task(userInput);
+                list.add(newTask);
                 printHorizontalLine();
             }
         }
