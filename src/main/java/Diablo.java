@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner; // Import Scanner class
 
 public class Diablo {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException{
         // Preliminaries
         String botName = "Diablo";
         String greeting = "\tHello! I'm " + botName + "\n\tWhat can I do for you?";
@@ -35,27 +35,65 @@ public class Diablo {
                 printHorizontalLine();
             } else {
                 if (firstWord.equals("deadline")) {
-                    int startBy = userInput.indexOf("/by");
-                    String description = userInput.substring(9, startBy - 1);
-                    String day = userInput.substring(startBy + 4);
-                    Task deadline = new Deadline(description, day);
-                    list.add(deadline);
+                    try {
+                        int startBy = userInput.indexOf("/by");
+                        if (startBy == -1) {
+                            String msg = "Please indicate a deadline!";
+                            throw new DukeException(msg);
+                        } else {
+                            String description = userInput.substring(9, startBy - 1);
+                            String day = userInput.substring(startBy + 4);
+                            Task deadline = new Deadline(description, day);
+                            list.add(deadline);
+                        }
+                    } catch (DukeException e) {
+                        System.out.println("\t" + e.getMessage());
+                        printHorizontalLine();
+                        continue;
+                    }
                 } else if (firstWord.equals("todo")) {
-                    String description = userInput.substring(5);
-                    Task todo = new ToDo(description);
-                    list.add(todo);
+                    try {
+                        String noSpaces = userInput.replace(" ", "");
+                        int todoLength = noSpaces.length();
+                        if (todoLength < 5) {
+                            String msg = "PLease include something you want to do!";
+                            throw new DukeException(msg);
+                        } else {
+                            String description = userInput.substring(5);
+                            Task todo = new ToDo(description);
+                            list.add(todo);
+                        }
+                    } catch (DukeException e) {
+                        System.out.println("\t" + e.getMessage());
+                        printHorizontalLine();
+                        continue;
+                    }
                 } else if (firstWord.equals("event")) {
-                    int startFrom = userInput.indexOf("/from");
-                    int startTo = userInput.indexOf("/to");
-                    String description = userInput.substring(6, startFrom - 1);
-                    String from = userInput.substring(startFrom + 6, startTo - 1);
-                    String to = userInput.substring(startTo + 4);
-                    Task event = new Event(description, from, to);
-                    list.add(event);
+                    try {
+                        int startFrom = userInput.indexOf("/from");
+                        int startTo = userInput.indexOf("/to");
+                        if (startFrom == -1) {
+                            String msg = "Please include a start date!";
+                            throw new DukeException(msg);
+                        } else if (startTo == -1) {
+                            String msg = "Please include an end date!";
+                            throw new DukeException(msg);
+                        } else {
+                            String description = userInput.substring(6, startFrom - 1);
+                            String from = userInput.substring(startFrom + 6, startTo - 1);
+                            String to = userInput.substring(startTo + 4);
+                            Task event = new Event(description, from, to);
+                            list.add(event);
+                        }
+                    } catch (DukeException e) {
+                        System.out.println("\t" + e.getMessage());
+                        printHorizontalLine();
+                        continue;
+                    }
                 } else {
-                    System.out.println("\tadded: " + userInput);
-                    Task newTask = new Task(userInput);
-                    list.add(newTask);
+                    System.out.println("\t" + "I don't know what that means!!!");
+                    printHorizontalLine();
+                    continue;
                 }
                 Task task = list.get(list.size() - 1);
                 System.out.println("\tGot it. I've added this task:\n\t\t" + task);
