@@ -19,29 +19,33 @@ public class Diablo {
             String userInput = scanner.nextLine();
             printHorizontalLine();
             String firstWord = userInput.split(" ")[0];
-            if (userInput.equals("bye")) {
-                finished = true;
-            } else if (userInput.equals("list")) {
-                for (int i = 0; i < list.size(); i++) {
-                    System.out.println("\t" + (i + 1) + ":" + list.get(i));
-                }
-                printHorizontalLine();
-            } else if (firstWord.equals("mark") || firstWord.equals("delete")) {
-                int stringLen = userInput.length();
-                int taskNumber = Integer.parseInt(userInput.substring(stringLen - 1, stringLen));
-                Task task = list.get(taskNumber - 1);
-                if (firstWord.equals("mark")) {
+            switch (firstWord) {
+                case "bye":
+                    finished = true;
+                    break;
+                case "list":
+                    for (int i = 0; i < list.size(); i++) {
+                        System.out.println("\t" + (i + 1) + ":" + list.get(i));
+                    }
+                    printHorizontalLine();
+                    break;
+                case "mark": {
+                    int stringLen = userInput.length();
+                    int taskNumber = Integer.parseInt(userInput.substring(stringLen - 1, stringLen));
+                    Task task = list.get(taskNumber - 1);
                     task.complete();
                     System.out.println("\tNice! I've marked this task as done:\n\t\t" + task);
-                } else {
+                    break;
+                }
+                case "delete": {
+                    int stringLen = userInput.length();
+                    int taskNumber = Integer.parseInt(userInput.substring(stringLen - 1, stringLen));
+                    Task task = list.get(taskNumber - 1);
                     list.remove(taskNumber - 1);
                     System.out.println("\t ALright, I've removed this task:\n\t\t" + task);
+                    break;
                 }
-
-                printHorizontalLine();
-            }
-            else {
-                if (firstWord.equals("deadline")) {
+                case "deadline":
                     try {
                         int startBy = userInput.indexOf("/by");
                         if (startBy == -1) {
@@ -52,13 +56,14 @@ public class Diablo {
                             String day = userInput.substring(startBy + 4);
                             Task deadline = new Deadline(description, day);
                             list.add(deadline);
+                            break;
                         }
                     } catch (DukeException e) {
                         System.out.println("\t" + e.getMessage());
                         printHorizontalLine();
                         continue;
                     }
-                } else if (firstWord.equals("todo")) {
+                case "todo":
                     try {
                         String noSpaces = userInput.replace(" ", "");
                         int todoLength = noSpaces.length();
@@ -69,13 +74,14 @@ public class Diablo {
                             String description = userInput.substring(5);
                             Task todo = new ToDo(description);
                             list.add(todo);
+                            break;
                         }
                     } catch (DukeException e) {
                         System.out.println("\t" + e.getMessage());
                         printHorizontalLine();
                         continue;
                     }
-                } else if (firstWord.equals("event")) {
+                case "event":
                     try {
                         int startFrom = userInput.indexOf("/from");
                         int startTo = userInput.indexOf("/to");
@@ -91,22 +97,25 @@ public class Diablo {
                             String to = userInput.substring(startTo + 4);
                             Task event = new Event(description, from, to);
                             list.add(event);
+                            break;
                         }
                     } catch (DukeException e) {
                         System.out.println("\t" + e.getMessage());
                         printHorizontalLine();
                         continue;
                     }
-                } else {
+                default: {
                     System.out.println("\t" + "I don't know what that means!!!");
                     printHorizontalLine();
                     continue;
                 }
-                Task task = list.get(list.size() - 1);
-                System.out.println("\tGot it. I've added this task:\n\t\t" + task);
-                System.out.println("\tYou now have " + list.size() + " tasks in the list.");
-                printHorizontalLine();
             }
+
+            Task task = list.get(list.size() - 1);
+            System.out.println("\tGot it. I've added this task:\n\t\t" + task);
+            System.out.println("\tYou now have " + list.size() + " tasks in the list.");
+            printHorizontalLine();
+
         }
         System.out.println(exit);
         printHorizontalLine();
