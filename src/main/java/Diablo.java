@@ -24,15 +24,14 @@ public class Diablo {
                     finished = true;
                     continue;
                 case "list":
-                    if (list.size() <= 0) {
+                    if (list.isEmpty()) {
                         System.out.println("\tThere are no list items yet!");
                     } else {
                         for (int i = 0; i < list.size(); i++) {
                             System.out.println("\t" + (i + 1) + ":" + list.get(i));
                         }
                     }
-                    printHorizontalLine();
-                    continue;
+                    break;
                 case "mark": {
                     int stringLen = userInput.length();
                     int taskNumber = Integer.parseInt(userInput.substring(stringLen - 1, stringLen));
