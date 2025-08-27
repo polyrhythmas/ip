@@ -11,6 +11,14 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
+    public String getType() {
+        return "";
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
     public void complete() {
         this.isDone = true;
     }
