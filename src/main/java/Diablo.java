@@ -22,13 +22,17 @@ public class Diablo {
             switch (firstWord) {
                 case "bye":
                     finished = true;
-                    break;
+                    continue;
                 case "list":
-                    for (int i = 0; i < list.size(); i++) {
-                        System.out.println("\t" + (i + 1) + ":" + list.get(i));
+                    if (list.size() <= 0) {
+                        System.out.println("\tThere are no list items yet!");
+                    } else {
+                        for (int i = 0; i < list.size(); i++) {
+                            System.out.println("\t" + (i + 1) + ":" + list.get(i));
+                        }
                     }
                     printHorizontalLine();
-                    break;
+                    continue;
                 case "mark": {
                     int stringLen = userInput.length();
                     int taskNumber = Integer.parseInt(userInput.substring(stringLen - 1, stringLen));
@@ -42,7 +46,7 @@ public class Diablo {
                     int taskNumber = Integer.parseInt(userInput.substring(stringLen - 1, stringLen));
                     Task task = list.get(taskNumber - 1);
                     list.remove(taskNumber - 1);
-                    System.out.println("\t ALright, I've removed this task:\n\t\t" + task);
+                    System.out.println("\t Alright, I've removed this task:\n\t\t" + task);
                     break;
                 }
                 case "deadline":
@@ -55,7 +59,7 @@ public class Diablo {
                             String description = userInput.substring(9, startBy - 1);
                             String day = userInput.substring(startBy + 4);
                             Task deadline = new Deadline(description, day);
-                            list.add(deadline);
+                            addTask(deadline, list);
                             break;
                         }
                     } catch (DukeException e) {
@@ -73,7 +77,7 @@ public class Diablo {
                         } else {
                             String description = userInput.substring(5);
                             Task todo = new ToDo(description);
-                            list.add(todo);
+                            addTask(todo, list);
                             break;
                         }
                     } catch (DukeException e) {
@@ -96,7 +100,7 @@ public class Diablo {
                             String from = userInput.substring(startFrom + 6, startTo - 1);
                             String to = userInput.substring(startTo + 4);
                             Task event = new Event(description, from, to);
-                            list.add(event);
+                            addTask(event, list);
                             break;
                         }
                     } catch (DukeException e) {
@@ -110,10 +114,6 @@ public class Diablo {
                     continue;
                 }
             }
-
-            Task task = list.get(list.size() - 1);
-            System.out.println("\tGot it. I've added this task:\n\t\t" + task);
-            System.out.println("\tYou now have " + list.size() + " tasks in the list.");
             printHorizontalLine();
 
         }
@@ -131,5 +131,11 @@ public class Diablo {
         }
 
         System.out.println();
+    }
+
+    private static void addTask(Task task, ArrayList<Task> list) {
+        list.add(task);
+        System.out.println("\tGot it. I've added this task:\n\t\t");
+        System.out.println("\tYou now have " + list.size() + " tasks in the list.");
     }
 }
