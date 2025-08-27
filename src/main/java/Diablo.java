@@ -64,8 +64,7 @@ public class Diablo {
                         }
                     } catch (DukeException e) {
                         System.out.println("\t" + e.getMessage());
-                        printHorizontalLine();
-                        continue;
+                        break;
                     }
                 case "todo":
                     try {
@@ -82,8 +81,7 @@ public class Diablo {
                         }
                     } catch (DukeException e) {
                         System.out.println("\t" + e.getMessage());
-                        printHorizontalLine();
-                        continue;
+                        break;
                     }
                 case "event":
                     try {
@@ -105,13 +103,11 @@ public class Diablo {
                         }
                     } catch (DukeException e) {
                         System.out.println("\t" + e.getMessage());
-                        printHorizontalLine();
-                        continue;
+                        break;
                     }
                 default: {
                     System.out.println("\t" + "I don't know what that means!!!");
-                    printHorizontalLine();
-                    continue;
+                    break;
                 }
             }
             printHorizontalLine();
