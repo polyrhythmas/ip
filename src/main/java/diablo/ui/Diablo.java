@@ -9,6 +9,10 @@ import diablo.exception.DiabloException;
 import java.io.*;
 import java.util.Scanner; // Import Scanner class
 
+
+/**
+ * Represents the main class for the Diablo chatbot.
+ */
 public class Diablo {
     private Ui ui;
     private Storage storage;
@@ -25,11 +29,10 @@ public class Diablo {
 
     }
 
-
+    /**
+     * Represents the main logic used by the chatbot, and is used to jumpstart the chatbot.
+     */
     public void run() {
-        // Preliminaries
-
-        Scanner scanner = new Scanner(System.in);
 
         // Start
         ui.greetUser();
@@ -117,6 +120,10 @@ public class Diablo {
         ui.sayBye();
     }
 
+    /**
+     * Initialises the Diablo class and starts the chatbot.
+     * @param args
+     */
     public static void main(String[] args) {
         new Diablo("src/main/data/diablo.txt").run();
     }

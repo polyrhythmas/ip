@@ -5,7 +5,19 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+
+/**
+ * Parses strings into string arrays.
+ */
 public class Parser {
+
+    /**\
+     * Takes a string and parses it based on the input logic of Diablo, returning a string array with the required
+     * information.
+     *
+     * @param input String to be parsed.
+     * @return String array containing the parsed contents of the string.
+     */
     public static String[] parse(String input) {
         String firstWord = input.split(" ")[0];
         switch (firstWord) {
