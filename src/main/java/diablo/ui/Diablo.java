@@ -1,9 +1,12 @@
-import javax.swing.*;
+package diablo.ui;
+
+import diablo.task.Deadline;
+import diablo.task.Event;
+import diablo.task.Task;
+import diablo.task.ToDo;
+import diablo.exception.DiabloException;
+
 import java.io.*;
-import java.lang.reflect.Array;
-import java.net.Inet4Address;
-import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner; // Import Scanner class
 
 public class Diablo {
@@ -48,7 +51,7 @@ public class Diablo {
                 case "mark": {
                     try {
                         ui.markTask(taskList.mark(Integer.parseInt(parsedInput[1])));
-                    } catch (DukeException e) {
+                    } catch (DiabloException e) {
                         ui.printErrorMessage(e);
                     }
                     break;
@@ -56,7 +59,7 @@ public class Diablo {
                 case "delete": {
                     try {
                         ui.deleteTask(taskList.delete(Integer.parseInt(parsedInput[1])));
-                    } catch (DukeException e) {
+                    } catch (DiabloException e) {
                         ui.printErrorMessage(e);
                     }
                     break;
@@ -64,39 +67,39 @@ public class Diablo {
                 case "deadline":
                     try {
                         if (parsedInput[1].equals("-1")) {
-                            throw new DukeException(parsedInput[2]);
+                            throw new DiabloException(parsedInput[2]);
                         } else {
                             Task deadline = new Deadline(parsedInput[1], parsedInput[2]);
                             ui.addTask(taskList.addTask(deadline));
                             break;
                         }
-                    } catch (DukeException e) {
+                    } catch (DiabloException e) {
                         ui.printErrorMessage(e);
                         break;
                     }
                 case "todo":
                     try {
                         if (parsedInput[1].equals("-1")) {
-                            throw new DukeException(parsedInput[2]);
+                            throw new DiabloException(parsedInput[2]);
                         } else {
                             Task todo = new ToDo(parsedInput[1]);
                             ui.addTask(taskList.addTask(todo));
                             break;
                         }
-                    } catch (DukeException e) {
+                    } catch (DiabloException e) {
                         ui.printErrorMessage(e);
                         break;
                     }
                 case "event":
                     try {
                         if (parsedInput[1].equals("-1")) {
-                            throw new DukeException(parsedInput[2]);
+                            throw new DiabloException(parsedInput[2]);
                         } else {
                             Task event = new Event(parsedInput[1], parsedInput[2], parsedInput[3]);
                             ui.addTask(taskList.addTask(event));
                             break;
                         }
-                    } catch (DukeException e) {
+                    } catch (DiabloException e) {
                         System.out.println("\t" + e.getMessage());
                         break;
                     }

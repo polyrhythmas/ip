@@ -1,3 +1,5 @@
+package diablo.ui;
+
 public class Parser {
     public static String[] parse(String input) {
         String firstWord = input.split(" ")[0];

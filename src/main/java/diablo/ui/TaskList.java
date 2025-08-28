@@ -1,3 +1,11 @@
+package diablo.ui;
+
+import diablo.task.Deadline;
+import diablo.task.Event;
+import diablo.task.Task;
+import diablo.task.ToDo;
+import diablo.exception.DiabloException;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -16,9 +24,9 @@ public class TaskList {
         return task.toString();
     }
 
-    public String mark(int taskNumber) throws DukeException {
+    public String mark(int taskNumber) throws DiabloException {
         if (taskNumber > tasks.size() || taskNumber <= 0) {
-            throw new DukeException("Invalid task number! Check your tasks again.");
+            throw new DiabloException("Invalid task number! Check your tasks again.");
         } else {
             Task toComplete = tasks.get(taskNumber - 1);
             toComplete.complete();
@@ -26,9 +34,9 @@ public class TaskList {
         }
     }
 
-    public String delete(int taskNumber) throws DukeException {
+    public String delete(int taskNumber) throws DiabloException {
         if (taskNumber > tasks.size() || taskNumber <= 0) {
-            throw new DukeException("Invalid task number! Check your tasks again.");
+            throw new DiabloException("Invalid task number! Check your tasks again.");
         } else {
             Task toDelete = tasks.get(taskNumber - 1);
             tasks.remove(taskNumber - 1);

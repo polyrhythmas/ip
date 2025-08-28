@@ -1,3 +1,7 @@
+package diablo.ui;
+
+import diablo.exception.DiabloException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -39,7 +43,7 @@ public class Ui {
         printHorizontalLine();
     }
 
-    public void printErrorMessage(DukeException e) {
+    public void printErrorMessage(DiabloException e) {
         printHorizontalLine();
         System.out.println("\t" + e.getMessage());
         printHorizontalLine();
