@@ -65,6 +65,10 @@ public class Diablo {
                 }
                 break;
             }
+            case "find": {
+                ui.showList(taskList.filterAndFormatForUi(parsedInput[1]));
+                break;
+            }
             case "deadline":
                 try {
                     if (parsedInput[1].equals("-1")) {

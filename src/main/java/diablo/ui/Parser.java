@@ -27,6 +27,10 @@ public class Parser {
         case "list": {
             return new String[] {"list"};
         }
+        case "find": {
+            int stringLen = input.length();
+            return new String[] {"find", input.substring(5, stringLen)};
+        }
         case "mark": {
             int stringLen = input.length();
             return new String[] {"mark", input.substring(stringLen - 1, stringLen)};
