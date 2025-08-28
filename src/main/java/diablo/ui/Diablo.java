@@ -48,6 +48,10 @@ public class Diablo {
                     ui.showList(taskList.formatForUi());
                     break;
                 }
+                case "find": {
+                    ui.showList(taskList.filterAndFormatForUi(parsedInput[1]));
+                    break;
+                }
                 case "mark": {
                     try {
                         ui.markTask(taskList.mark(Integer.parseInt(parsedInput[1])));

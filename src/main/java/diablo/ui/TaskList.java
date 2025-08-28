@@ -7,6 +7,7 @@ import diablo.task.ToDo;
 import diablo.exception.DiabloException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -44,6 +45,23 @@ public class TaskList {
         }
     }
 
+
+    /**
+     * Filters tasks based on their description and a given key, and returns an ArrayList of filtered tasks as strings.
+     *
+     * @param key String to find in each task description.
+     * @return ArrayList of filtered tasks as strings.
+     */
+    public ArrayList<String> filterAndFormatForUi(String key) {
+        ArrayList<String> outputList = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (Arrays.asList(tasks.get(i).getDescription().split(" ")).contains(key)) {
+                outputList.add(tasks.get(i).toString());
+            }
+        }
+        return outputList;
+    }
+
     public ArrayList<String> formatForUi() {
         ArrayList<String> outputList = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
@@ -52,6 +70,7 @@ public class TaskList {
         return outputList;
     }
 
+    
     public ArrayList<String> formatForStorage() {
         ArrayList<String> listOfStrings = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
