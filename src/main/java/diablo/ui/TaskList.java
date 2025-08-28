@@ -102,7 +102,12 @@ public class TaskList {
         return outputList;
     }
 
-    
+
+    /**
+     * Formats the current task list for storage into a text file.
+     *
+     * @return ArrayList of string representations of the tasks in storage format.
+     */
     public ArrayList<String> formatForStorage() {
         ArrayList<String> listOfStrings = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
