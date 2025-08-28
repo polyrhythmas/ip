@@ -43,6 +43,12 @@ public class Ui {
         printHorizontalLine();
     }
 
+    public void printFileErrorMessage() {
+        printHorizontalLine();
+        System.out.println("\tAn error occured when reading data. Try again!");
+        printHorizontalLine();
+    }
+
     public void printErrorMessage(DiabloException e) {
         printHorizontalLine();
         System.out.println("\t" + e.getMessage());

@@ -29,8 +29,6 @@ public class Diablo {
     public void run() {
         // Preliminaries
 
-        String filePath = "src/main/data/diablo.txt";
-
         Scanner scanner = new Scanner(System.in);
 
         // Start
@@ -110,9 +108,9 @@ public class Diablo {
             }
 
             try {
-                storage.writeDiablo(taskList.formatForStorage(), filePath);
+                storage.writeDiablo(taskList.formatForStorage());
             } catch (IOException e) {
-                System.out.println("\tAn error occured when reading data. Try again!");
+                ui.printFileErrorMessage();
             }
 
         }
