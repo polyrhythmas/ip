@@ -5,6 +5,12 @@ public class ToDo extends Task {
         super(description);
     }
 
+
+    /**
+     * Gets the type of task.
+     *
+     * @return Capital letter "T" which represents a todo task.
+     */
     @Override
     public String getType() {
         return "T";

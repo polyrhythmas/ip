@@ -8,6 +8,10 @@ import diablo.exception.DiabloException;
 
 import java.util.ArrayList;
 
+
+/**
+ * Contains and manages the task list for the chatbot.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
@@ -19,11 +23,25 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task A Task object.
+     * @return String representation of the task.
+     */
     public String addTask(Task task) {
         tasks.add(task);
         return task.toString();
     }
 
+
+    /**
+     * Marks a task as done. Will throw a DiabloException if the list does not have a task with the task number.
+     *
+     * @param taskNumber The position of the task in the list.
+     * @return String representation of the completed task.
+     * @throws DiabloException If the list does not have a task with the task number.
+     */
     public String mark(int taskNumber) throws DiabloException {
         if (taskNumber > tasks.size() || taskNumber <= 0) {
             throw new DiabloException("Invalid task number! Check your tasks again.");
@@ -34,6 +52,14 @@ public class TaskList {
         }
     }
 
+
+    /**
+     * Deletes a task from the list. Will throw a DiabloException if the list does not have a task with the task number.
+     *
+     * @param taskNumber The position of the task in the list.
+     * @return String representation of the deleted task.
+     * @throws DiabloException If the list does not have a task with the task number.
+     */
     public String delete(int taskNumber) throws DiabloException {
         if (taskNumber > tasks.size() || taskNumber <= 0) {
             throw new DiabloException("Invalid task number! Check your tasks again.");
@@ -44,6 +70,12 @@ public class TaskList {
         }
     }
 
+
+    /**
+     * Formats the current task list for the Ui to receive and print out.
+     *
+     * @return ArrayList of string representations of the tasks.
+     */
     public ArrayList<String> formatForUi() {
         ArrayList<String> outputList = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {

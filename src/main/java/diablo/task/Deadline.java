@@ -3,6 +3,10 @@ package diablo.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+
+/**
+ * Represents a deadline given by a description and due date.
+ */
 public class Deadline extends Task {
     protected LocalDate by;
 
@@ -11,11 +15,23 @@ public class Deadline extends Task {
         this.by = LocalDate.parse(by);
     }
 
+
+    /**
+     * Gets the type of task.
+     *
+     * @return Capital letter "D" which represents a deadline.
+     */
     @Override
     public String getType() {
         return "D";
     }
 
+
+    /**
+     * Gets the due date of the task.
+     *
+     * @return String representation of the due date in the format yyyy-MM-dd.
+     */
     public String getByDate() {
         return by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }

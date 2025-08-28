@@ -8,6 +8,13 @@ import diablo.task.ToDo;
 import java.io.*;
 import java.util.ArrayList;
 
+
+/**
+ * Provides storage capability to the Diablo chatbot.
+ * This class takes in a filepath string for reading and writing
+ * task information obtained from Diablo to a text file located
+ * via the specified filepath.
+ */
 public class Storage {
     private String filePath;
 
@@ -24,7 +31,12 @@ public class Storage {
         }
     }
 
-
+    /**
+     * Reads the file specified by the filePath string and returns an ArrayList of tasks stored in the file.
+     *
+     * @return ArrayList of Task objects.
+     * @throws IOException If file does not exist.
+     */
     public ArrayList<Task> readDiablo() throws IOException {
         // Initialise string list
         ArrayList<String> listOfStrings = new ArrayList<>();
@@ -79,7 +91,13 @@ public class Storage {
         return taskList;
     }
 
-    public void writeDiablo(ArrayList<String> listOfStrings, String filePath) throws IOException {
+    /**
+     * Writes a list of strings from an ArrayList to the file specified by the Storage object's filePath.
+     *
+     * @param listOfStrings ArrayList of strings to write to the file.
+     * @throws IOException If the file does not exist.
+     */
+    public void writeDiablo(ArrayList<String> listOfStrings) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
         for (int i = 0; i < listOfStrings.size(); i++) {
             writer.append(listOfStrings.get(i));
