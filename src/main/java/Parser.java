@@ -1,0 +1,57 @@
+public class Parser {
+    public static String[] parse(String input) {
+        String firstWord = input.split(" ")[0];
+        switch (firstWord) {
+        case "bye": {
+            return new String[] {"bye"};
+        }
+        case "list": {
+            return new String[] {"list"};
+        }
+        case "mark": {
+            int stringLen = input.length();
+            return new String[] {"mark", input.substring(stringLen - 1, stringLen)};
+        }
+        case "delete": {
+            int stringLen = input.length();
+            return new String[] {"delete", input.substring(stringLen - 1, stringLen)};
+        }
+        case "deadline": {
+            int startBy = input.indexOf("/by");
+            if (startBy == -1) {
+                return new String[] {"deadline", "-1", "Please indicate a deadline!"};
+            } else {
+                String description = input.substring(9, startBy - 1);
+                String day = input.substring(startBy + 4);
+                return new String[] {"deadline", description, day};
+            }
+        }
+        case "todo": {
+            String noSpaces = input.replace(" ", "");
+            int todoLength = noSpaces.length();
+            if (todoLength < 5) {
+                return new String[] {"todo", "-1", "Please include something you want to do!"};
+            } else {
+                String description = input.substring(5);
+                return new String[] {"todo", description};
+            }
+        }
+            case "event": {
+                int startFrom = input.indexOf("/from");
+                int startTo = input.indexOf("/to");
+                if (startFrom == -1 || startTo == -1) {
+                    return new String[] {"event", "-1", "Please include both /from and /to dates!"};
+                } else {
+                    String description = input.substring(6, startFrom - 1);
+                    String from = input.substring(startFrom + 6, startTo - 1);
+                    String to = input.substring(startTo + 4);
+                    return new String[] {"event", description, from, to};
+                }
+            }
+            default: {
+                return new String[] {""};
+            }
+
+        }
+    }
+}
