@@ -38,76 +38,76 @@ public class Diablo {
         ui.greetUser();
         boolean finished = false;
         while (!finished) {
-            String userInput = ui.nextInput();
+            String userInput = ui.getNextInput();
             String[] parsedInput = Parser.parse(userInput);
             String inputType = parsedInput[0];
             switch (inputType) {
-                case "bye":
-                    finished = true;
-                    continue;
-                case "list": {
-                    ui.showList(taskList.formatForUi());
-                    break;
+            case "bye":
+                finished = true;
+                continue;
+            case "list": {
+                ui.showList(taskList.formatForUi());
+                break;
+            }
+            case "mark": {
+                try {
+                    ui.markTask(taskList.mark(Integer.parseInt(parsedInput[1])));
+                } catch (DiabloException e) {
+                    ui.printErrorMessage(e);
                 }
-                case "mark": {
-                    try {
-                        ui.markTask(taskList.mark(Integer.parseInt(parsedInput[1])));
-                    } catch (DiabloException e) {
-                        ui.printErrorMessage(e);
-                    }
-                    break;
+                break;
+            }
+            case "delete": {
+                try {
+                    ui.deleteTask(taskList.delete(Integer.parseInt(parsedInput[1])));
+                } catch (DiabloException e) {
+                    ui.printErrorMessage(e);
                 }
-                case "delete": {
-                    try {
-                        ui.deleteTask(taskList.delete(Integer.parseInt(parsedInput[1])));
-                    } catch (DiabloException e) {
-                        ui.printErrorMessage(e);
-                    }
-                    break;
-                }
-                case "deadline":
-                    try {
-                        if (parsedInput[1].equals("-1")) {
-                            throw new DiabloException(parsedInput[2]);
-                        } else {
-                            Task deadline = new Deadline(parsedInput[1], parsedInput[2]);
-                            ui.addTask(taskList.addTask(deadline));
-                            break;
-                        }
-                    } catch (DiabloException e) {
-                        ui.printErrorMessage(e);
+                break;
+            }
+            case "deadline":
+                try {
+                    if (parsedInput[1].equals("-1")) {
+                        throw new DiabloException(parsedInput[2]);
+                    } else {
+                        Task deadline = new Deadline(parsedInput[1], parsedInput[2]);
+                        ui.addTask(taskList.addTask(deadline));
                         break;
                     }
-                case "todo":
-                    try {
-                        if (parsedInput[1].equals("-1")) {
-                            throw new DiabloException(parsedInput[2]);
-                        } else {
-                            Task todo = new ToDo(parsedInput[1]);
-                            ui.addTask(taskList.addTask(todo));
-                            break;
-                        }
-                    } catch (DiabloException e) {
-                        ui.printErrorMessage(e);
-                        break;
-                    }
-                case "event":
-                    try {
-                        if (parsedInput[1].equals("-1")) {
-                            throw new DiabloException(parsedInput[2]);
-                        } else {
-                            Task event = new Event(parsedInput[1], parsedInput[2], parsedInput[3]);
-                            ui.addTask(taskList.addTask(event));
-                            break;
-                        }
-                    } catch (DiabloException e) {
-                        System.out.println("\t" + e.getMessage());
-                        break;
-                    }
-                default: {
-                    ui.invalidInputMessage();
+                } catch (DiabloException e) {
+                    ui.printErrorMessage(e);
                     break;
                 }
+            case "todo":
+                try {
+                    if (parsedInput[1].equals("-1")) {
+                        throw new DiabloException(parsedInput[2]);
+                    } else {
+                        Task todo = new ToDo(parsedInput[1]);
+                        ui.addTask(taskList.addTask(todo));
+                        break;
+                    }
+                } catch (DiabloException e) {
+                    ui.printErrorMessage(e);
+                    break;
+                }
+            case "event":
+                try {
+                    if (parsedInput[1].equals("-1")) {
+                        throw new DiabloException(parsedInput[2]);
+                    } else {
+                        Task event = new Event(parsedInput[1], parsedInput[2], parsedInput[3]);
+                        ui.addTask(taskList.addTask(event));
+                        break;
+                    }
+                } catch (DiabloException e) {
+                    System.out.println("\t" + e.getMessage());
+                    break;
+                }
+            default: {
+                ui.printInvalidInputMessage();
+                break;
+            }
             }
 
             try {

@@ -65,20 +65,20 @@ public class Storage {
 
             // Add specific task from initial element
             switch (taskDetails[0]) {
-                case "T":
-                    Task toDo = new ToDo(taskDetails[2]);
-                    taskList.add(toDo);
-                    break;
+            case "T":
+                Task toDo = new ToDo(taskDetails[2]);
+                taskList.add(toDo);
+                break;
 
-                case "D":
-                    Task deadline = new Deadline(taskDetails[2], taskDetails[3]);
-                    taskList.add(deadline);
-                    break;
+            case "D":
+                Task deadline = new Deadline(taskDetails[2], taskDetails[3]);
+                taskList.add(deadline);
+                break;
 
-                case "E":
-                    Task event = new Event(taskDetails[2], taskDetails[3], taskDetails[4]);
-                    taskList.add(event);
-                    break;
+            case "E":
+                Task event = new Event(taskDetails[2], taskDetails[3], taskDetails[4]);
+                taskList.add(event);
+                break;
             }
 
             // Completes task if it is already done

@@ -19,12 +19,13 @@ public class Ui {
         this.SCANNER = new Scanner(System.in);
     }
 
+
     /**
      * Scans for the next line of input from the user.
      *
      * @return Input of user.
      */
-    public String nextInput() {
+    public String getNextInput() {
         return this.SCANNER.nextLine();
     }
 
@@ -92,7 +93,7 @@ public class Ui {
     /**
      * Prints an error message in the case that the input does not meet chatbot requirements.
      */
-    public void invalidInputMessage() {
+    public void printInvalidInputMessage() {
         printHorizontalLine();
         System.out.println("\t" + "I don't know what that means!!!");
         printHorizontalLine();
