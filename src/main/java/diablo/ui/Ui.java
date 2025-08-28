@@ -15,7 +15,7 @@ public class Ui {
         this.SCANNER = new Scanner(System.in);
     }
 
-    public String nextInput() {
+    public String getNextInput() {
         return this.SCANNER.nextLine();
     }
 
@@ -49,7 +49,7 @@ public class Ui {
         printHorizontalLine();
     }
 
-    public void invalidInputMessage() {
+    public void printInvalidInputMessage() {
         printHorizontalLine();
         System.out.println("\t" + "I don't know what that means!!!");
         printHorizontalLine();

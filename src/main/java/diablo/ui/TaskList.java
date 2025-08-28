@@ -67,33 +67,33 @@ public class TaskList {
 
             String result = "";
             switch (task.getType()) {
-                case "T": {
-                    ToDo todo = (ToDo) task;
-                    String[] taskDetails = {todo.getType(), completed, todo.getDescription()};
-                    result = String.join("___", taskDetails);
-                    break;
-                }
+            case "T": {
+                ToDo todo = (ToDo) task;
+                String[] taskDetails = {todo.getType(), completed, todo.getDescription()};
+                result = String.join("___", taskDetails);
+                break;
+            }
 
-                case "D": {
-                    Deadline deadline = (Deadline) task;
-                    String[] taskDetails = {deadline.getType(),
-                            completed,
-                            deadline.getDescription(),
-                            deadline.getByDate()};
-                    result = String.join("___", taskDetails);
-                    break;
-                }
+            case "D": {
+                Deadline deadline = (Deadline) task;
+                String[] taskDetails = {deadline.getType(),
+                        completed,
+                        deadline.getDescription(),
+                        deadline.getByDate()};
+                result = String.join("___", taskDetails);
+                break;
+            }
 
-                case "E": {
-                    Event event = (Event) task;
-                    String[] taskDetails = {event.getType(),
-                            completed,
-                            event.getDescription(),
-                            event.getFromDate(),
-                            event.getToDate()};
-                    result = String.join("___", taskDetails);
-                    break;
-                }
+            case "E": {
+                Event event = (Event) task;
+                String[] taskDetails = {event.getType(),
+                        completed,
+                        event.getDescription(),
+                        event.getFromDate(),
+                        event.getToDate()};
+                result = String.join("___", taskDetails);
+                break;
+            }
 
 
             }
