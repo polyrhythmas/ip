@@ -1,5 +1,5 @@
 	--------------------------------------------------
-	Hello! I'm Diablo
+	Hello! I'm diablo.ui.Diablo
 	What can I do for you?
 	--------------------------------------------------
 todo go to library
