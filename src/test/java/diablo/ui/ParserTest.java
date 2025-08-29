@@ -6,19 +6,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParserTest {
     @Test
-    public void testParseDeadlineWithNoDate() {
+    public void parse_deadlineWithNoDate_errorMessage() {
         String[] output = Parser.parse("deadline i wanna go home");
         assertEquals("Please indicate a deadline!", output[2]);
     }
 
     @Test
-    public void testParseDeadlineWithWrongDateFormat() {
+    public void parse_deadlineWithWrongDateFormat_errorMessage() {
         String[] output = Parser.parse("deadline i wanna go home /by 19 January 2024");
         assertEquals("Please write the date in the format yyyy-mm-dd", output[2]);
     }
 
     @Test
-    public void testParseDeadlineWithMissingDate() {
+    public void parse_deadlineWithMissingDate_errorMessage() {
         String[] output = Parser.parse("deadline i wanna go home /by ");
         assertEquals("Please write the date in the format yyyy-mm-dd", output[2]);
     }

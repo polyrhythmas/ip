@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class TaskListTest {
     @Test
-    public void markTaskTest() {
+    public void mark_generalTask_taskMarked() {
         TaskList taskList = new TaskList();
         Task task1 = new Deadline("do homework", "2025-08-29");
         Task task2 = new Event("do chores", "2025-08-24", "2025-08-25");
@@ -31,7 +31,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void markTestWithWrongIndexTest() {
+    public void mark_wrongIndex_exceptionThrown() {
         TaskList taskList = new TaskList();
         Task task1 = new Deadline("do homework", "2025-08-29");
         Task task2 = new Event("do chores", "2025-08-24", "2025-08-25");
