@@ -27,7 +27,7 @@ public class Storage {
             File diabloFile = new File(filePath);
             diabloFile.createNewFile();
         } catch (IOException e) {
-            System.out.println("\tAn error occured when reading data. Try again!");
+            e.printStackTrace();
         }
     }
 

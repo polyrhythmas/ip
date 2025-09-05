@@ -14,12 +14,10 @@ import java.util.Scanner; // Import Scanner class
  * Represents the main class for the Diablo chatbot.
  */
 public class Diablo {
-    private Ui ui;
     private Storage storage;
     private TaskList taskList;
 
     public Diablo(String filePath) {
-        this.ui = new Ui();
         this.storage = new Storage(filePath);
         try {
             this.taskList = new TaskList(storage.readDiablo());
@@ -30,44 +28,40 @@ public class Diablo {
     }
 
     /**
-     * Represents the main logic used by the chatbot, and is used to jumpstart the chatbot.
+     * Makes sense of information typed in by the user, and outputs a string for Diablo to message back.
+     * @param input String input by the user.
+     * @return String message of Diablo response.
      */
-    public void run() {
-
-        // Start
-        ui.greetUser();
-        boolean finished = false;
-        while (!finished) {
-            String userInput = ui.getNextInput();
-            String[] parsedInput = Parser.parse(userInput);
-            String inputType = parsedInput[0];
-            switch (inputType) {
+    public String[] getOutput(String input) {
+        String[] parsedInput = Parser.parse(input);
+        String inputType = parsedInput[0];
+        switch (inputType) {
             case "bye":
-                finished = true;
-                continue;
+                String byeMessage = "Bye. Hope to see you again soon!";
+                return new String[] {"1", byeMessage};
             case "list": {
-                ui.showList(taskList.formatForUi());
-                break;
+                String list = taskList.formatForWindow();
+                return new String[] {"0", list};
             }
             case "mark": {
                 try {
-                    ui.markTask(taskList.mark(Integer.parseInt(parsedInput[1])));
+                    String taskMarkedMessage = taskList.mark(Integer.parseInt(parsedInput[1]));
+                    return new String[] {"0", taskMarkedMessage};
                 } catch (DiabloException e) {
-                    ui.printErrorMessage(e);
+                    return new String[] {"0", e.getMessage()};
                 }
-                break;
             }
             case "delete": {
                 try {
-                    ui.deleteTask(taskList.delete(Integer.parseInt(parsedInput[1])));
+                    String taskDeletedMessage = taskList.delete(Integer.parseInt(parsedInput[1]));
+                    return new String[] {"0", taskDeletedMessage};
                 } catch (DiabloException e) {
-                    ui.printErrorMessage(e);
+                    return new String[] {"0", e.getMessage()};
                 }
-                break;
             }
             case "find": {
-                ui.showList(taskList.filterAndFormatForUi(parsedInput[1]));
-                break;
+                String list = taskList.filterAndFormatForWindow(parsedInput[1]);
+                return new String[] {"0", list};
             }
             case "deadline":
                 try {
@@ -75,12 +69,10 @@ public class Diablo {
                         throw new DiabloException(parsedInput[2]);
                     } else {
                         Task deadline = new Deadline(parsedInput[1], parsedInput[2]);
-                        ui.addTask(taskList.addTask(deadline));
-                        break;
+                        return new String[] {"0", taskList.addTask(deadline)};
                     }
                 } catch (DiabloException e) {
-                    ui.printErrorMessage(e);
-                    break;
+                    return new String[] {"0", e.getMessage()};
                 }
             case "todo":
                 try {
@@ -88,12 +80,10 @@ public class Diablo {
                         throw new DiabloException(parsedInput[2]);
                     } else {
                         Task todo = new ToDo(parsedInput[1]);
-                        ui.addTask(taskList.addTask(todo));
-                        break;
+                        return new String[] {"0", taskList.addTask(todo)};
                     }
                 } catch (DiabloException e) {
-                    ui.printErrorMessage(e);
-                    break;
+                    return new String[] {"0", e.getMessage()};
                 }
             case "event":
                 try {
@@ -101,35 +91,28 @@ public class Diablo {
                         throw new DiabloException(parsedInput[2]);
                     } else {
                         Task event = new Event(parsedInput[1], parsedInput[2], parsedInput[3]);
-                        ui.addTask(taskList.addTask(event));
-                        break;
+                        return new String[] {"0", taskList.addTask(event)};
                     }
                 } catch (DiabloException e) {
-                    System.out.println("\t" + e.getMessage());
-                    break;
+                    return new String[] {"0", e.getMessage()};
                 }
             default: {
-                ui.printInvalidInputMessage();
-                break;
+                String unknownMessage = "I don't know what that means!!!";
+                return new String[] {"0", unknownMessage};
             }
-            }
-
-            try {
-                storage.writeDiablo(taskList.formatForStorage());
-            } catch (IOException e) {
-                ui.printFileErrorMessage();
-            }
-
         }
-        ui.sayBye();
+
     }
 
     /**
-     * Initialises the Diablo class and starts the chatbot.
-     * @param args
+     * Writes current task list into diablo.txt for storage.
      */
-    public static void main(String[] args) {
-        new Diablo("src/main/data/diablo.txt").run();
+    public void addToStorage() {
+        try {
+            storage.writeDiablo(taskList.formatForStorage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

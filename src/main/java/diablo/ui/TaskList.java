@@ -28,11 +28,11 @@ public class TaskList {
      * Adds a task to the task list.
      *
      * @param task A Task object.
-     * @return String representation of the task.
+     * @return String detailing which task has been added.
      */
     public String addTask(Task task) {
         tasks.add(task);
-        return task.toString();
+        return "Got it. I've added this task:\n\t" + task.toString();
     }
 
 
@@ -40,7 +40,7 @@ public class TaskList {
      * Marks a task as done. Will throw a DiabloException if the list does not have a task with the task number.
      *
      * @param taskNumber The position of the task in the list.
-     * @return String representation of the completed task.
+     * @return String message detailing which task has been marked.
      * @throws DiabloException If the list does not have a task with the task number.
      */
     public String mark(int taskNumber) throws DiabloException {
@@ -49,7 +49,7 @@ public class TaskList {
         } else {
             Task toComplete = tasks.get(taskNumber - 1);
             toComplete.complete();
-            return toComplete.toString();
+            return "Nice! I've marked this task as done:\n\t" + toComplete;
         }
     }
 
@@ -58,7 +58,7 @@ public class TaskList {
      * Deletes a task from the list. Will throw a DiabloException if the list does not have a task with the task number.
      *
      * @param taskNumber The position of the task in the list.
-     * @return String representation of the deleted task.
+     * @return String message detailing which task has been deleted.
      * @throws DiabloException If the list does not have a task with the task number.
      */
     public String delete(int taskNumber) throws DiabloException {
@@ -67,7 +67,7 @@ public class TaskList {
         } else {
             Task toDelete = tasks.get(taskNumber - 1);
             tasks.remove(taskNumber - 1);
-            return toDelete.toString();
+            return "Alright, I've removed this task:\n\t" + toDelete;
         }
     }
 
@@ -76,30 +76,46 @@ public class TaskList {
      * Filters tasks based on their description and a given key, and returns an ArrayList of filtered tasks as strings.
      *
      * @param key String to find in each task description.
-     * @return ArrayList of filtered tasks as strings.
+     * @return String of filtered tasks. If no tasks are found return a message saying there are no list items yet.
      */
-    public ArrayList<String> filterAndFormatForUi(String key) {
-        ArrayList<String> outputList = new ArrayList<>();
+    public String filterAndFormatForWindow(String key) {
+        StringBuilder outputString = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             if (Arrays.asList(tasks.get(i).getDescription().split(" ")).contains(key)) {
-                outputList.add(tasks.get(i).toString());
+                outputString.append(i + 1);
+                outputString.append(": ");
+                outputString.append(tasks.get(i).toString());
+                outputString.append("\n");
             }
         }
-        return outputList;
+        if (outputString.isEmpty()) {
+            return "There are no list items yet!";
+        } else {
+            return outputString.toString();
+        }
+
     }
 
 
     /**
      * Formats the current task list for the Ui to receive and print out.
      *
-     * @return ArrayList of string representations of the tasks.
+     * @return String representation of the tasks. If the list is empty then return a message saying that there are no
+     * items in the list.
      */
-    public ArrayList<String> formatForUi() {
-        ArrayList<String> outputList = new ArrayList<>();
+    public String formatForWindow() {
+        StringBuilder outputString = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            outputList.add(tasks.get(i).toString());
+            outputString.append(i + 1);
+            outputString.append(": ");
+            outputString.append(tasks.get(i).toString());
+            outputString.append("\n");
         }
-        return outputList;
+        if (outputString.isEmpty()) {
+            return "There are currently no items in the list!";
+        } else {
+            return outputString.toString();
+        }
     }
 
 
