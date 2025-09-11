@@ -54,12 +54,18 @@ public class Diablo {
         case "find": {
             return handleFind(parsedInput);
         }
-        case "deadline":
+        case "deadline": {
             return handleDeadline(parsedInput);
-        case "todo":
+        }
+        case "todo": {
             return handleToDo(parsedInput);
-        case "event":
+        }
+        case "event": {
             return handleEvent(parsedInput);
+        }
+        case "help": {
+            return handleHelp(parsedInput);
+        }
         default: {
             return handleDefault();
         }
@@ -158,7 +164,10 @@ public class Diablo {
         return new String[] {"0", unknownMessage};
     }
 
-
+    private String[] handleHelp(String[] parsedInput) {
+        String helpMessage = parsedInput[1];
+        return new String[] {"0", helpMessage};
+    }
 
 
 }

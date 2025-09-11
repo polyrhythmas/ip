@@ -4,14 +4,43 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.SplittableRandom;
 
 
 /**
  * Parses strings into string arrays.
  */
 public class Parser {
+    private String byeHelp = "bye - says bye to the chatbot and exits";
+    private String listHelp = "list - lists all current tasks in the task list";
+    private String markHelp = "mark - marks a specific task in the list as done.\n" +
+            "\texample: mark 1\n" +
+            "\t\t-> this marks the first task";
+    private String deleteHelp = "delete - deletes a specific task in the list\n" +
+            "\texample: delete 1\n" +
+            "\t\t-> this deletes the first task";
+    private String findHelp = "find - finds a task based on a keyword\n" +
+            "\texample: find work\n" +
+            "\t\t-> this finds all tasks with work in the description";
+    private String deadlineHelp = "deadline - adds a deadline task to the task list\n" +
+            "\texample: deadline do work /by 2024-10-3\n" +
+            "\t\t-> this adds a deadline task with the description (do work) and a deadline 2024-10-3";
+    private String toDoHelp = "todo - adds a todo task to the task list\n " +
+            "\texample: todo go home " +
+            "\t\t-> this adds a todo task with the description (go home)";
+    private String eventHelp = "event - adds an event task to the task list\n" +
+            "\texample: event party /from 2024-10-3 /to 2024-10-5\n" +
+            "\t\t-> this adds an event task with the description (party) from 2024-10-3 to 2024-10-5";
 
-
+    private String[] helpMessages = new String[] {byeHelp,
+            listHelp,
+            markHelp,
+            deleteHelp,
+            findHelp,
+            deadlineHelp,
+            toDoHelp,
+            eventHelp
+    };
     public Parser() {};
 
     /**\
@@ -47,6 +76,9 @@ public class Parser {
         }
         case "event": {
             return formatForEvent(input);
+        }
+        case "help": {
+            return formatForHelp(input);
         }
         default: {
             return formatForDefault();
@@ -124,7 +156,61 @@ public class Parser {
         }
     }
 
+    private String[] formatForHelp(String input) {
+        if (input.length() <= 4) {
+            StringBuilder allHelpMessage = new StringBuilder();
+            allHelpMessage.append(helpMessages[0]);
+            for (int i = 1; i < helpMessages.length; i++) {
+                allHelpMessage.append("\n");
+                allHelpMessage.append(helpMessages[i]);
+            }
+            return new String[] {"help", allHelpMessage.toString()};
+        }
+        String commandThatNeedsHelp = input.substring(5);
+        String message = "";
+        switch (commandThatNeedsHelp) {
+            case "bye": {
+                message = byeHelp;
+                break;
+            }
+            case "list": {
+                message = listHelp;
+                break;
+            }
+            case "find": {
+                message = findHelp;
+                break;
+            }
+            case "mark": {
+                message = markHelp;
+                break;
+            }
+            case "delete": {
+                message = deleteHelp;
+                break;
+            }
+            case "deadline": {
+                message = deadlineHelp;
+                break;
+            }
+            case "todo": {
+                message = toDoHelp;
+                break;
+            }
+            case "event": {
+                message = eventHelp;
+                break;
+            }
+            default: {
+                message = "Please input a command!";
+            }
+        }
+
+        return new String[] {"help", message};
+    }
+
     private String[] formatForDefault() {
         return new String[] {""};
     }
+
 }
