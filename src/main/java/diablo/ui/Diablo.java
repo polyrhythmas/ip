@@ -36,70 +36,29 @@ public class Diablo {
         String[] parsedInput = Parser.parse(input);
         String inputType = parsedInput[0];
         switch (inputType) {
-            case "bye":
-                String byeMessage = "Bye. Hope to see you again soon!";
-                return new String[] {"1", byeMessage};
-            case "list": {
-                String list = taskList.formatForWindow();
-                return new String[] {"0", list};
-            }
-            case "mark": {
-                try {
-                    String taskMarkedMessage = taskList.mark(Integer.parseInt(parsedInput[1]));
-                    return new String[] {"0", taskMarkedMessage};
-                } catch (DiabloException e) {
-                    return new String[] {"0", e.getMessage()};
-                }
-            }
-            case "delete": {
-                try {
-                    String taskDeletedMessage = taskList.delete(Integer.parseInt(parsedInput[1]));
-                    return new String[] {"0", taskDeletedMessage};
-                } catch (DiabloException e) {
-                    return new String[] {"0", e.getMessage()};
-                }
-            }
-            case "find": {
-                String list = taskList.filterAndFormatForWindow(parsedInput[1]);
-                return new String[] {"0", list};
-            }
-            case "deadline":
-                try {
-                    if (parsedInput[1].equals("-1")) {
-                        throw new DiabloException(parsedInput[2]);
-                    } else {
-                        Task deadline = new Deadline(parsedInput[1], parsedInput[2]);
-                        return new String[] {"0", taskList.addTask(deadline)};
-                    }
-                } catch (DiabloException e) {
-                    return new String[] {"0", e.getMessage()};
-                }
-            case "todo":
-                try {
-                    if (parsedInput[1].equals("-1")) {
-                        throw new DiabloException(parsedInput[2]);
-                    } else {
-                        Task todo = new ToDo(parsedInput[1]);
-                        return new String[] {"0", taskList.addTask(todo)};
-                    }
-                } catch (DiabloException e) {
-                    return new String[] {"0", e.getMessage()};
-                }
-            case "event":
-                try {
-                    if (parsedInput[1].equals("-1")) {
-                        throw new DiabloException(parsedInput[2]);
-                    } else {
-                        Task event = new Event(parsedInput[1], parsedInput[2], parsedInput[3]);
-                        return new String[] {"0", taskList.addTask(event)};
-                    }
-                } catch (DiabloException e) {
-                    return new String[] {"0", e.getMessage()};
-                }
-            default: {
-                String unknownMessage = "I don't know what that means!!!";
-                return new String[] {"0", unknownMessage};
-            }
+        case "bye":
+            return handleBye(parsedInput);
+        case "list": {
+            return handleList(parsedInput);
+        }
+        case "mark": {
+            return handleMark(parsedInput);
+        }
+        case "delete": {
+            return handleDelete(parsedInput);
+        }
+        case "find": {
+            return handleFind(parsedInput);
+        }
+        case "deadline":
+            return handleDeadline(parsedInput);
+        case "todo":
+            return handleToDo(parsedInput);
+        case "event":
+            return handleEvent(parsedInput);
+        default: {
+            return handleDefault();
+        }
         }
 
     }
@@ -114,5 +73,85 @@ public class Diablo {
             e.printStackTrace();
         }
     }
+
+    private String[] handleBye(String[] parsedInput) {
+        String byeMessage = "Bye. Hope to see you again soon!";
+        return new String[] {"1", byeMessage};
+    }
+
+    private String[] handleList(String[] parsedInput) {
+        String list = taskList.formatForWindow();
+        return new String[] {"0", list};
+    }
+
+    private String[] handleFind(String[] parsedInput) {
+        String list = taskList.filterAndFormatForWindow(parsedInput[1]);
+        return new String[] {"0", list};
+    }
+
+    public String[] handleMark(String[] parsedInput) {
+        try {
+            String taskMarkedMessage = taskList.mark(Integer.parseInt(parsedInput[1]));
+            return new String[] {"0", taskMarkedMessage};
+        } catch (DiabloException e) {
+            return new String[] {"0", e.getMessage()};
+        }
+    }
+
+    private String[] handleDelete(String[] parsedInput) {
+        try {
+            String taskDeletedMessage = taskList.delete(Integer.parseInt(parsedInput[1]));
+            return new String[] {"0", taskDeletedMessage};
+        } catch (DiabloException e) {
+            return new String[] {"0", e.getMessage()};
+        }
+    }
+
+    private String[] handleDeadline(String[] parsedInput) {
+        try {
+            if (parsedInput[1].equals("-1")) {
+                throw new DiabloException(parsedInput[2]);
+            } else {
+                Task deadline = new Deadline(parsedInput[1], parsedInput[2]);
+                return new String[] {"0", taskList.addTask(deadline)};
+            }
+        } catch (DiabloException e) {
+            return new String[] {"0", e.getMessage()};
+        }
+    }
+
+    private String[] handleToDo(String[] parsedInput) {
+        try {
+            if (parsedInput[1].equals("-1")) {
+                throw new DiabloException(parsedInput[2]);
+            } else {
+                Task todo = new ToDo(parsedInput[1]);
+                return new String[] {"0", taskList.addTask(todo)};
+            }
+        } catch (DiabloException e) {
+            return new String[] {"0", e.getMessage()};
+        }
+    }
+
+    private String[] handleEvent(String[] parsedInput) {
+        try {
+            if (parsedInput[1].equals("-1")) {
+                throw new DiabloException(parsedInput[2]);
+            } else {
+                Task event = new Event(parsedInput[1], parsedInput[2], parsedInput[3]);
+                return new String[] {"0", taskList.addTask(event)};
+            }
+        } catch (DiabloException e) {
+            return new String[] {"0", e.getMessage()};
+        }
+    }
+
+    private String[] handleDefault() {
+        String unknownMessage = "I don't know what that means!!!";
+        return new String[] {"0", unknownMessage};
+    }
+
+
+
 
 }
