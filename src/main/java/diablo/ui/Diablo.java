@@ -16,9 +16,11 @@ import java.util.Scanner; // Import Scanner class
 public class Diablo {
     private Storage storage;
     private TaskList taskList;
+    private Parser parser;
 
     public Diablo(String filePath) {
         this.storage = new Storage(filePath);
+        this.parser = new Parser();
         try {
             this.taskList = new TaskList(storage.readDiablo());
         } catch (IOException e) {
@@ -33,15 +35,15 @@ public class Diablo {
      * @return String message of Diablo response.
      */
     public String[] getOutput(String input) {
-        String[] parsedInput = Parser.parse(input);
+        String[] parsedInput = parser.parse(input);
         assert parsedInput[0] != null: "Parsed input should have at least an identifier";
 
         String inputType = parsedInput[0];
         switch (inputType) {
         case "bye":
-            return handleBye(parsedInput);
+            return handleBye();
         case "list": {
-            return handleList(parsedInput);
+            return handleList();
         }
         case "mark": {
             return handleMark(parsedInput);
@@ -76,12 +78,12 @@ public class Diablo {
         }
     }
 
-    private String[] handleBye(String[] parsedInput) {
+    private String[] handleBye() {
         String byeMessage = "Bye. Hope to see you again soon!";
         return new String[] {"1", byeMessage};
     }
 
-    private String[] handleList(String[] parsedInput) {
+    private String[] handleList() {
         String list = taskList.formatForWindow();
         return new String[] {"0", list};
     }
@@ -113,10 +115,11 @@ public class Diablo {
         try {
             if (parsedInput[1].equals("-1")) {
                 throw new DiabloException(parsedInput[2]);
-            } else {
-                Task deadline = new Deadline(parsedInput[1], parsedInput[2]);
-                return new String[] {"0", taskList.addTask(deadline)};
             }
+
+            Task deadline = new Deadline(parsedInput[1], parsedInput[2]);
+            return new String[] {"0", taskList.addTask(deadline)};
+
         } catch (DiabloException e) {
             return new String[] {"0", e.getMessage()};
         }
@@ -126,10 +129,11 @@ public class Diablo {
         try {
             if (parsedInput[1].equals("-1")) {
                 throw new DiabloException(parsedInput[2]);
-            } else {
-                Task todo = new ToDo(parsedInput[1]);
-                return new String[] {"0", taskList.addTask(todo)};
             }
+
+            Task todo = new ToDo(parsedInput[1]);
+            return new String[] {"0", taskList.addTask(todo)};
+
         } catch (DiabloException e) {
             return new String[] {"0", e.getMessage()};
         }
@@ -139,10 +143,11 @@ public class Diablo {
         try {
             if (parsedInput[1].equals("-1")) {
                 throw new DiabloException(parsedInput[2]);
-            } else {
-                Task event = new Event(parsedInput[1], parsedInput[2], parsedInput[3]);
-                return new String[] {"0", taskList.addTask(event)};
             }
+
+            Task event = new Event(parsedInput[1], parsedInput[2], parsedInput[3]);
+            return new String[] {"0", taskList.addTask(event)};
+
         } catch (DiabloException e) {
             return new String[] {"0", e.getMessage()};
         }
