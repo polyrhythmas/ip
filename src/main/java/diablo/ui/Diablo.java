@@ -34,6 +34,8 @@ public class Diablo {
      */
     public String[] getOutput(String input) {
         String[] parsedInput = Parser.parse(input);
+        assert parsedInput[0] != null: "Parsed input should have at least an identifier";
+
         String inputType = parsedInput[0];
         switch (inputType) {
         case "bye":

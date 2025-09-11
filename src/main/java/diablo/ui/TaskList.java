@@ -80,16 +80,17 @@ public class TaskList {
      */
     public String filterAndFormatForWindow(String key) {
         StringBuilder outputString = new StringBuilder();
+        int count = 0;
         for (int i = 0; i < tasks.size(); i++) {
-            if (Arrays.asList(tasks.get(i).getDescription().split(" ")).contains(key)) {
-                outputString.append(i + 1);
+            if (tasks.get(i).getDescription().contains(key)) {
+                outputString.append(++count);
                 outputString.append(": ");
                 outputString.append(tasks.get(i).toString());
                 outputString.append("\n");
             }
         }
         if (outputString.isEmpty()) {
-            return "There are no list items yet!";
+            return "The items you are looking for are not in the list!";
         } else {
             return outputString.toString();
         }

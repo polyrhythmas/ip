@@ -54,7 +54,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        assert input != null: "User input should not be null";
+
         String[] output = diablo.getOutput(input);
+        assert output.length >= 2: "Output has to at least have 1 code and 1 message";
+
         diablo.addToStorage();
 
         if (output[0].equals("1")) {
