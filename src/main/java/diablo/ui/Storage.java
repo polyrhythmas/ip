@@ -5,7 +5,14 @@ import diablo.task.Event;
 import diablo.task.Task;
 import diablo.task.ToDo;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
 import java.util.ArrayList;
 
 
@@ -21,13 +28,14 @@ public class Storage {
     public Storage(String filePath) {
         this.filePath = filePath;
 
-        // File reading
+        Path path = Paths.get(filePath);
         try {
-            // Check for file existence
-            File diabloFile = new File(filePath);
-            diabloFile.createNewFile();
+            // Create the file if it does not exist
+            if (!Files.exists(path)) {
+                Files.createFile(path);
+            }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Failed to create storage file at " + filePath, e);
         }
     }
 
