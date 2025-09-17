@@ -48,13 +48,25 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Returns the DialogBox's dialog
+     * @return dialog
+     */
+    private Label getDialog() {
+        return dialog;
+    }
+
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
+        db.getDialog().getStyleClass().add("user-bubble");
+        db.setAlignment(Pos.TOP_RIGHT);
+        return db;
     }
 
     public static DialogBox getDiabloDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
-        db.flip();
+        DialogBox db = new DialogBox(text, img);
+        db.getDialog().getStyleClass().add("bot-bubble");
+        db.setAlignment(Pos.TOP_LEFT);
         return db;
     }
 }
