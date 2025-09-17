@@ -27,6 +27,7 @@ public class Main extends Application {
                             .toExternalForm()
             );
             stage.setScene(scene);
+            stage.setTitle("Diablo");
             fxmlLoader.<MainWindow>getController().setDiablo(diablo);  // inject the Duke instance
             stage.show();
         } catch (IOException e) {

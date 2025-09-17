@@ -31,6 +31,7 @@
             <content>
                 <VBox fx:id="dialogContainer"
                       spacing="10"
+                      fillWidth="true"
                       prefHeight="552.0"
                       prefWidth="388.0"
                       style="-fx-background-color: #ecf0f1; -fx-background-radius: 8;">

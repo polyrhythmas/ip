@@ -21,7 +21,7 @@
         <!-- Message bubble -->
         <Label fx:id="dialog"
                wrapText="true"
-               maxWidth="300.0" />
+               minHeight="-Infinity" />
     </children>
 
     <!-- Padding around the HBox -->

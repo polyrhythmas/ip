@@ -1,8 +1,8 @@
 package diablo.ui;
 
 
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
-import javafx.application.Platform;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -32,7 +32,13 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        scrollPane.vvalueProperty().bind(
+                Bindings.createDoubleBinding(
+                        () -> 1.0,
+                        dialogContainer.heightProperty()
+                )
+        );
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getDiabloDialog(greeting, diabloImage)
         );
@@ -51,10 +57,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        assert input != null: "User input should not be null";
+        assert input != null : "User input should not be null";
 
         String[] output = diablo.getOutput(input);
-        assert output.length >= 2: "Output has to at least have 1 code and 1 message";
+        assert output.length >= 2 : "Output has to at least have 1 code and 1 message";
 
         diablo.addToStorage();
 
@@ -63,14 +69,16 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDiabloDialog(output[1], diabloImage)
         );
 
-        /// Used ChatGPT to introduce the case where the input "bye" by the user closes the GUI
         if (output[0].equals("1")) {
-            // Close the window
             Stage stage = (Stage) userInput.getScene().getWindow();
             stage.close();
         } else {
             userInput.clear();
         }
     }
+
+
+
+
 }
 
