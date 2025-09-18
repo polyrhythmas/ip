@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
@@ -30,12 +31,22 @@ public class Storage {
 
         Path path = Paths.get(filePath);
         try {
-            // Create the file if it does not exist
+            // First, check if the file exists on the file system (for development)
             if (!Files.exists(path)) {
-                Files.createFile(path);
+                // If not, check if it's a resource within the JAR
+                URL resourceUrl = getClass().getResource(filePath);
+                if (resourceUrl == null) {
+                    // If it's not on the file system or in the JAR,
+                    // create the parent directories and then the file.
+                    Path parentDir = path.getParent();
+                    if (parentDir != null && !Files.exists(parentDir)) {
+                        Files.createDirectories(parentDir);
+                    }
+                    Files.createFile(path);
+                }
             }
         } catch (IOException e) {
-            throw new RuntimeException("Failed to create storage file at " + filePath, e);
+            throw new RuntimeException("Failed to handle storage file at " + filePath, e);
         }
     }
 
