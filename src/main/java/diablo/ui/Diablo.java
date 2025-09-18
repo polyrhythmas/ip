@@ -160,7 +160,7 @@ public class Diablo {
     }
 
     private String[] handleDefault() {
-        String unknownMessage = "I don't know what that means!!!";
+        String unknownMessage = "I don't know what that means!!! Type 'help' to see a list of functions.";
         return new String[] {"0", unknownMessage};
     }
 
