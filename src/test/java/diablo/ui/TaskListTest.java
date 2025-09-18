@@ -12,21 +12,18 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class TaskListTest {
     @Test
-    public void mark_generalTask_taskMarked() {
+    public void delete_generalTask_taskDeleted() {
         TaskList taskList = new TaskList();
         Task task1 = new Deadline("do homework", "2025-08-29");
-        Task task2 = new Event("do chores", "2025-08-24", "2025-08-25");
         taskList.addTask(task1);
-        taskList.addTask(task2);
-        Task task3 = new Deadline("do homework", "2025-08-29");
-        task3.complete();
+        String result = "There are currently no items in the list!";
         try {
-            taskList.mark(1);
+            taskList.delete(1);
         } catch (DiabloException e) {}
 
-        String output = taskList.formatForUi().get(0);
+        String output = taskList.formatForWindow();
 
-        assertEquals(task3.toString(), output);
+        assertEquals(result, output);
 
     }
 

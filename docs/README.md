@@ -1,10 +1,8 @@
-# Duke User Guide
+# Diablo User Guide
 
-// Update the title above to match the actual product name
+![Screenshot of an example conversation in the Diablo Chatbot.](Ui.png)
 
-// Product screenshot goes here
-
-// Product intro goes here
+Diablo is a feature rich chatbot which allows users to store and access scheduled tasks.
 
 ## Adding deadlines
 
