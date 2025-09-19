@@ -109,9 +109,14 @@ public class Parser {
 
     private String[] formatForDeadline(String input) {
         int startBy = input.indexOf("/by");
-        if (startBy == -1) {
+        // No date
+        if (startBy == -1 || (startBy + 4) > input.length()) {
             return new String[] {"deadline", "-1", "Please indicate a deadline!"};
         } else {
+            // No event
+            if ((startBy - 1) <= 9) {
+                return new String[] {"deadline", "-1", "Please indicate what the deadline is for!"};
+            }
             String description = input.substring(9, startBy - 1);
             String day = input.substring(startBy + 4);
             try {
@@ -139,7 +144,14 @@ public class Parser {
         int startTo = input.indexOf("/to");
         if (startFrom == -1 || startTo == -1) {
             return new String[] {"event", "-1", "Please include both /from and /to dates!"};
+        } else if ((startTo + 4 >= input.length())) {
+            return new String[] {"event", "-1", "Your /to date is missing!"};
+        } else if ((startTo - startFrom) <= 6 ) {
+            return new String[]{"event", "-1", "Your /from date is missing!"};
         } else {
+            if ((startFrom - 1) <= 6) {
+                return new String[] {"event", "-1", "Please indicate what the event is!"};
+            }
             String description = input.substring(6, startFrom - 1);
             String from = input.substring(startFrom + 6, startTo - 1);
             String to = input.substring(startTo + 4);
