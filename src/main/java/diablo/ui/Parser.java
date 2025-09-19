@@ -1,5 +1,6 @@
 package diablo.ui;
 
+import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -98,13 +99,28 @@ public class Parser {
     }
 
     private String[] formatForMark(String input) {
-        int stringLen = input.length();
-        return new String[] {"mark", input.substring(stringLen - 1, stringLen)};
+        // Split by whitespace
+        String[] parts = input.trim().split("\\s+");
+        String lastToken = parts[parts.length - 1];
+        try {
+            Integer.parseInt(lastToken);
+        } catch (NumberFormatException e) {
+            return new String[] {"mark", "0"};
+        }
+        return new String[] {"mark", lastToken};
     }
 
+
     private String[] formatForDelete(String input) {
-        int stringLen = input.length();
-        return new String[] {"delete", input.substring(stringLen - 1, stringLen)};
+        // Split by whitespace
+        String[] parts = input.trim().split("\\s+");
+        String lastToken = parts[parts.length - 1];
+        try {
+            Integer.parseInt(lastToken);
+        } catch (NumberFormatException e) {
+            return new String[] {"delete", "0"};
+        }
+        return new String[] {"delete", lastToken};
     }
 
     private String[] formatForDeadline(String input) {
