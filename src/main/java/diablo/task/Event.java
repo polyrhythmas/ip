@@ -3,6 +3,9 @@ package diablo.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an Event Task, which has a description, start and end date, and can be marked as done.
+ */
 public class Event extends Task {
     protected LocalDate from;
     protected LocalDate to;

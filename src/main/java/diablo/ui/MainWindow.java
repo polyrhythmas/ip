@@ -30,6 +30,9 @@ public class MainWindow extends AnchorPane {
     private Image diabloImage = new Image(this.getClass().getResourceAsStream("/images/diablo.png"));
     private String greeting = "Hello! I'm Diablo.\nWhat can I do for you?";
 
+    /**
+     * Initialises the main window
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(
@@ -52,7 +55,7 @@ public class MainWindow extends AnchorPane {
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Diablo's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * the dialog container. Clears the user input after processing. Will exit program if input "bye" is found.
      */
     @FXML
     private void handleUserInput() {

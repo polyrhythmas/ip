@@ -15,6 +15,10 @@ public class Main extends Application {
 
     private Diablo diablo = new Diablo("src/main/data/diablo.txt");
 
+    /**
+     * Starts the GUI
+     * @param stage the stage for use in the GUI
+     */
     @Override
     public void start(Stage stage) {
         try {

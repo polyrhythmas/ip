@@ -8,9 +8,15 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
+/**
+ * Tests methods of the TaskList class
+ */
 public class TaskListTest {
+
+    /**
+     * Tests whether deleting a task from a TaskList containing a single Task results in the correct string output.
+     */
     @Test
     public void delete_generalTask_taskDeleted() {
         TaskList taskList = new TaskList();
@@ -27,6 +33,9 @@ public class TaskListTest {
 
     }
 
+    /**
+     * Tests whether trying to mark a task at an invalid index throws the correct exception.
+     */
     @Test
     public void mark_wrongIndex_exceptionThrown() {
         TaskList taskList = new TaskList();

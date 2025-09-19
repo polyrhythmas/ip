@@ -56,6 +56,12 @@ public class DialogBox extends HBox {
         return dialog;
     }
 
+    /**
+     * Creates a user DialogBox with the corresponding text and image
+     * @param text the text of the DialogBox
+     * @param img the image of the DialogBox
+     * @return a user DialogBox
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
         db.getDialog().getStyleClass().add("user-bubble");
@@ -63,6 +69,12 @@ public class DialogBox extends HBox {
         return db;
     }
 
+    /**
+     * Creates a Diablo DialogBox with the corresponding text and image
+     * @param text the text of the DialogBox
+     * @param img the image of the DialogBox
+     * @return a Diablo DialogBox
+     */
     public static DialogBox getDiabloDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
         db.getDialog().getStyleClass().add("bot-bubble");

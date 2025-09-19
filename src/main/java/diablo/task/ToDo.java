@@ -1,5 +1,8 @@
 package diablo.task;
 
+/**
+ * Represents a ToDo Task, which has a description and can be marked as done.
+ */
 public class ToDo extends Task {
     public ToDo(String description) {
         super(description);

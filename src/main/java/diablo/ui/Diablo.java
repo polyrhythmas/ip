@@ -99,7 +99,7 @@ public class Diablo {
         return new String[] {"0", list};
     }
 
-    public String[] handleMark(String[] parsedInput) {
+    private String[] handleMark(String[] parsedInput) {
         try {
             String taskMarkedMessage = taskList.mark(Integer.parseInt(parsedInput[1]));
             return new String[] {"0", taskMarkedMessage};

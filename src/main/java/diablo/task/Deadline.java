@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 
 /**
- * Represents a deadline given by a description and due date.
+ * Represents a deadline given by a description and due date, and can be marked as done.
  */
 public class Deadline extends Task {
     protected LocalDate by;
